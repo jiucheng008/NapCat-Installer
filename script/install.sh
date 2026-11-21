@@ -514,7 +514,7 @@ function download_napcat() {
 function get_qq_target_version() {
     #固定 3.2.30-50828 版本
     
-    linuxqq_target_version="3.2.32-260812"
+    linuxqq_target_version="3.2.32-52194"
 }
 
 function compare_linuxqq_versions() {
@@ -637,7 +637,7 @@ function install_linuxqq_rootless() {
             qq_download_url="https://github.com/Rodert/qq-versions/releases/download/qq-packages-20260813-1d08f1d4/QQ_3.2.32_260812_x86_64_01.rpm"
             qq_package_file="QQ.rpm"
         elif [ "${package_installer}" = "dpkg" ]; then
-            qq_download_url="https://github.com/Rodert/qq-versions/releases/download/qq-packages-20260813-1d08f1d4/QQ_3.2.32_260812_amd64_01.deb"
+            qq_download_url="https://software.openkylin.top/openkylin/pool/main/deb/linuxqq/extra/1/linuxqq_3.2.32-52194_amd64.deb"
             qq_package_file="QQ.deb"
         fi
     elif [ "${system_arch}" = "arm64" ]; then

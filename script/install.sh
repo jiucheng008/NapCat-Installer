@@ -162,7 +162,7 @@ function network_test() {
 
     if [ "${parm1}" == "Github" ]; then
         proxy_arr=("https://ghfast.top" "https://git.yylx.win/" "https://gh-proxy.com" "https://ghfile.geekertao.top" "https://gh-proxy.net" "https://j.1win.ggff.net" "https://ghm.078465.xyz" "https://gitproxy.127731.xyz" "https://jiashu.1win.eu.org" "https://github.tbedu.top")
-        check_url="https://raw.githubusercontent.com/NapNeko/NapCatQQ/main/package.json"
+        check_url="https://raw.githubusercontent.com/jiucheng008/NapCatQQ-NEXT/main/package.json"
     elif [ "${parm1}" == "Docker" ]; then
         proxy_arr=("docker.1ms.run" "docker.xuanyuan.me" "docker.mybacc.com" "dytt.online" "lispy.org")
         check_url="" # 当前代码会测试代理服务器的根路径
@@ -171,7 +171,7 @@ function network_test() {
         parm1="Github" # 确保 parm1 被重置以便后续逻辑正确执行
         # 为 Github 重置 proxy_arr 和 check_url
         proxy_arr=("https://ghfast.top" "https://git.yylx.win/" "https://gh-proxy.com" "https://ghfile.geekertao.top" "https://gh-proxy.net" "https://j.1win.ggff.net" "https://ghm.078465.xyz" "https://gitproxy.127731.xyz" "https://jiashu.1win.eu.org" "https://github.tbedu.top")
-        check_url="https://raw.githubusercontent.com/NapNeko/NapCatQQ/main/package.json"
+        check_url="https://raw.githubusercontent.com/jiucheng008/NapCatQQ-NEXT/main/package.json"
     fi
 
     # 手动指定了有效的代理服务器序号 (1 到 N)
@@ -461,7 +461,7 @@ function download_napcat() {
     else
         log "开始下载NapCat安装包,请稍等..."
         network_test "Github"
-        napcat_download_url="${target_proxy:+${target_proxy}/}https://github.com/NapNeko/NapCatQQ/releases/latest/download/NapCat.Shell.zip"
+        napcat_download_url="${target_proxy:+${target_proxy}/}https://github.com/jiucheng008/NapCatQQ-NEXT/releases/latest/download/NapCat.Shell.zip"
 
         #  Removed sudo from curl and mv 
         curl -k -L -# "${napcat_download_url}" -o "${default_file}"
@@ -781,7 +781,7 @@ function check_napcat_cli() {
 
 # TUI-CLI 安装到 /usr/local/bin，保留 sudo 是合理的
 function install_napcat_cli() {
-    local cli_script_url_base="https://raw.githubusercontent.com/NapNeko/NapCat-TUI-CLI/main/script"
+    local cli_script_url_base="https://raw.githubusercontent.com/jiucheng008/NapCat-TUI-CLI/main/script"
     local cli_script_name="install-cli.sh"
     local cli_script_local_path="./${cli_script_name}.download" # Download to a temporary name
     local cli_script_url="${target_proxy:+${target_proxy}/}${cli_script_url_base}/${cli_script_name}"
@@ -836,7 +836,7 @@ function generate_docker_command() {
     fi
 
     docker_cmd1="sudo docker run -d -e ACCOUNT=${qq}"
-    docker_cmd2="--name napcat --restart=always ${target_proxy:+${target_proxy}/}mlikiowa/napcat-docker:latest"
+    docker_cmd2="--name napcat --restart=always ${target_proxy:+${target_proxy}/}ghcr.io/jiucheng008/napcat-docker:latest"
     docker_ws="${docker_cmd1} -e WS_ENABLE=true -e NAPCAT_GID=$(id -g) -e NAPCAT_UID=$(id -u) -p 3001:3001 -p 6099:6099 ${docker_cmd2}"
     docker_reverse_ws="${docker_cmd1} -e WSR_ENABLE=true -e NAPCAT_GID=$(id -g) -e NAPCAT_UID=$(id -u) -p 6099:6099 ${docker_cmd2}"
     docker_reverse_http="${docker_cmd1} -e HTTP_ENABLE=true -e NAPCAT_GID=$(id -g) -e NAPCAT_UID=$(id -u) -p 3000:3000 -p 6099:6099 ${docker_cmd2}"
@@ -1137,6 +1137,10 @@ while [[ $# -gt 0 ]]; do
     --force)
         force="y"
         shift
+        ;;
+    --github-proxy)
+        proxy_num_arg="$2"
+        shift 2
         ;;
     --proxy)
         proxy_num_arg="$2"
